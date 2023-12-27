@@ -1,0 +1,18 @@
+{
+  "name": "juroscompostoscalc",
+  "version": "1.0.0",
+  "description": "",
+  "main": "main.ts",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "tsc main.ts && node main.js",
+    "table": "tsc tabelaRendimentos.ts && node tabelaRendimentos.js",
+    "graph": "tsc graficoRendimentos.ts && node graficoRendimentos.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@types/asciichart": "^1.5.8",
+    "asciichart": "^1.5.25"
+  }
+}
