@@ -8,14 +8,15 @@ function calcularJurosCompostos(valorInicial, aporteMensal, taxaJurosMensal, per
     var montante = valorInicial;
     var montantes = [];
     var totais = [];
-    var juros = [];
+    var valorInvestido = [];
     for (var i = 1; i <= numeroPeriodos; i++) {
         montante = montante * (1 + taxaJurosDecimal) + aporteMensal;
         montantes.push(montante);
-        totais.push(montante - valorInicial - aporteMensal * (i - 1));
-        juros.push(totais[i - 1] - aporteMensal * (i - 1));
+        var totalRendimento = montante - valorInicial - aporteMensal * (i - 1);
+        totais.push(totalRendimento);
+        valorInvestido.push(montante - totalRendimento);
     }
-    return { montantes: montantes, totais: totais, juros: juros };
+    return { montantes: montantes, totais: totais, valorInvestido: valorInvestido };
 }
 // Função para gerar um gráfico de linha
 function gerarGrafico(meses) {
@@ -27,10 +28,10 @@ function gerarGrafico(meses) {
         height: 20,
         padding: '   ',
         colors: datasets.map(function (d) { return d.color; }),
+        format: function (x) { return x.toFixed(2); },
     };
     var chart = (0, asciichart_1.plot)(datasets.map(function (d) { return d.values; }), config);
     var legend = datasets.map(function (d) { return "".concat(d.color, " ").concat(d.name); }).join('   ');
-    console.log(chart);
     console.log("".concat(chart, "\n").concat(legend));
 }
 // Parâmetros do investimento
@@ -46,4 +47,4 @@ for (var i = 1; i <= periodoAnos * 12; i++) {
     meses.push("".concat(i));
 }
 // Gere o gráfico
-gerarGrafico(meses, { name: 'Valor Investido', values: resultado.totais, color: asciichart_1.yellow }, { name: 'Total em Juros', values: resultado.juros, color: asciichart_1.magenta }, { name: 'Montante Total', values: resultado.montantes, color: asciichart_1.green });
+gerarGrafico(meses, { name: 'Valor Investido', values: resultado.valorInvestido, color: asciichart_1.yellow }, { name: 'Rendimento', values: resultado.totais, color: asciichart_1.magenta }, { name: 'Montante Total', values: resultado.montantes, color: asciichart_1.green });
