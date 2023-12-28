@@ -1,4 +1,6 @@
 import * as readlineSync from 'readline-sync';
+import { calcularJurosCompostosDetalhado, imprimirTabela } from './tabelaRendimentos';
+import { formatarNumero } from './helper';
 
 function calcularJurosCompostos(
   valorInicial: number,
@@ -40,9 +42,13 @@ const resultado = calcularJurosCompostos(
   taxaJurosMensal,
   periodoAnos
 );
-export function formatarNumero(numero: number): string {
-  return numero.toFixed(2).replace(/\./g, ',').replace(/\d(?=(\d{3})+,)/g, '$&.');
-}
+
+const tabelaRendimentos = calcularJurosCompostosDetalhado(
+  valorInicial,
+  aporteMensal,
+  taxaJurosMensal,
+  periodoAnos
+);
 
 type RendimentoAliquota = {
   rendimento: number;
@@ -70,6 +76,8 @@ function calcImpostoSobrerendimento(rendimento: number, periodoAnos: number):Ren
   }
 }
 
+
+
 console.log(`\nO montante acumulado ao final de ${periodoAnos} anos é \x1b[38;2;102;204;0mR$${resultado[0]}\x1b[0m
   \nValor Investido: \x1b[38;2;255;255;0mR$${resultado[2]}\x1b[0m
   \nRendimento: \x1b[38;2;0;128;255mR$${resultado[1]}\x1b[0m
@@ -77,3 +85,8 @@ console.log(`\nO montante acumulado ao final de ${periodoAnos} anos é \x1b[38;2
   \nValor total deduzindo imposto de renda: \x1b[38;2;128;225;0mR$${resultado[3]}\x1b[0m  
   \nValor retido na fonte: \x1b[38;2;255;51;51mR$${resultado[5]}\x1b[0m  Aliquota: \x1b[38;2;255;51;51m${resultado[4]}%\x1b[0m 
 `);
+const meses: string[] = [];
+for (let i = 1; i <= periodoAnos * 12; i++) {
+  meses.push(`${i}`);
+}
+imprimirTabela(meses, tabelaRendimentos.montantes, tabelaRendimentos.totais, tabelaRendimentos.valoresInvestidos);

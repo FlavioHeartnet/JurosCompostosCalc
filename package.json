@@ -6,7 +6,6 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "ts-node-dev src/main.ts",
-    "table": "ts-node-dev src/tabelaRendimentos.ts",
     "graph": "ts-node-dev src/graficoRendimentos.ts"
   },
   "author": "",
