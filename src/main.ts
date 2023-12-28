@@ -32,6 +32,7 @@ const valorInicial = parseFloat(readlineSync.question('Digite o valor inicial: '
 const aporteMensal = parseFloat(readlineSync.question('Digite o aporte mensal: '));
 const taxaJurosAnual = parseFloat(readlineSync.question('Digite a taxa de juros anual (decimal usando "." Ex: 5.94): '));
 const periodoAnos = parseFloat(readlineSync.question('Digite o período de investimento em anos: '));
+//Converter para Juros mensais
 const taxaJurosMensal = taxaJurosAnual / 12;
 const resultado = calcularJurosCompostos(
   valorInicial,

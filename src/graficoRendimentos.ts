@@ -1,6 +1,6 @@
 
 import { plot, yellow, magenta, green } from 'asciichart';
-
+import * as readlineSync from 'readline-sync';
 // Função para calcular juros compostos
 function calcularJurosCompostos(
   valorInicial: number,
@@ -45,10 +45,12 @@ function gerarGrafico(
   console.log(`${chart}\n${legend}`);
 }
 // Parâmetros do investimento
-const valorInicial = 1000;
-const aporteMensal = 100;
-const taxaJurosMensal = 0.5;
-const periodoAnos = 5;
+const valorInicial = parseFloat(readlineSync.question('Digite o valor inicial: '));
+const aporteMensal = parseFloat(readlineSync.question('Digite o aporte mensal: '));
+const taxaJurosAnual = parseFloat(readlineSync.question('Digite a taxa de juros anual (decimal usando "." Ex: 5.94): '));
+const periodoAnos = parseFloat(readlineSync.question('Digite o período de investimento em anos: '));
+//Converter para Juros mensais
+const taxaJurosMensal = taxaJurosAnual / 12;
 
 // Resultados do investimento
 const resultado = calcularJurosCompostos(

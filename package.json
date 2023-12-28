@@ -5,9 +5,9 @@
   "main": "main.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "tsc main.ts && node main.js",
-    "table": "tsc tabelaRendimentos.ts && node tabelaRendimentos.js",
-    "graph": "tsc graficoRendimentos.ts && node graficoRendimentos.js"
+    "start": "ts-node-dev src/main.ts",
+    "table": "ts-node-dev src/tabelaRendimentos.ts",
+    "graph": "ts-node-dev src/graficoRendimentos.ts"
   },
   "author": "",
   "license": "ISC",
@@ -15,5 +15,9 @@
     "@types/asciichart": "^1.5.8",
     "asciichart": "^1.5.25",
     "readline-sync": "^1.4.10"
+  },
+  "devDependencies": {
+    "@types/readline-sync": "^1.4.8",
+    "ts-node-dev": "^2.0.0"
   }
 }
