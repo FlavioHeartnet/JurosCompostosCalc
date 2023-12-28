@@ -31,7 +31,7 @@ function calcularJurosCompostos(
 const valorInicial = parseFloat(readlineSync.question('Digite o valor inicial: '));
 const aporteMensal = parseFloat(readlineSync.question('Digite o aporte mensal: '));
 const taxaJurosAnual = parseFloat(readlineSync.question('Digite a taxa de juros anual (decimal usando "." Ex: 5.94): '));
-const periodoAnos = parseFloat(readlineSync.question('Digite o período de investimento em anos: '));
+const periodoAnos = parseFloat(readlineSync.question('Período de investimento em anos (para meses Ex: 0.6 = 6 meses): '));
 //Converter para Juros mensais
 const taxaJurosMensal = taxaJurosAnual / 12;
 const resultado = calcularJurosCompostos(
@@ -40,7 +40,7 @@ const resultado = calcularJurosCompostos(
   taxaJurosMensal,
   periodoAnos
 );
-function formatarNumero(numero: number): string {
+export function formatarNumero(numero: number): string {
   return numero.toFixed(2).replace(/\./g, ',').replace(/\d(?=(\d{3})+,)/g, '$&.');
 }
 

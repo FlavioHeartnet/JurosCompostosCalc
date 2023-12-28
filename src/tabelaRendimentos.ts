@@ -1,11 +1,8 @@
 import * as readlineSync from 'readline-sync';
+import { formatarNumero } from './main';
 
-// calculoJuros.ts
-function formatarNumero(numero: number): string {
-  return numero.toFixed(2).replace(/\./g, ',').replace(/\d(?=(\d{3})+,)/g, '$&.');
-}
 
-function calcularJurosCompostos(
+function calcularJurosCompostosDetalhado(
   valorInicial: number,
   aporteMensal: number,
   taxaJurosMensal: number,
@@ -42,7 +39,7 @@ const taxaJurosAnual = parseFloat(readlineSync.question('Digite a taxa de juros 
 const periodoAnos = parseFloat(readlineSync.question('Digite o período de investimento em anos: '));
 //Converter para Juros mensais
 const taxaJurosMensal = taxaJurosAnual / 12;
-const resultado = calcularJurosCompostos(
+const resultado = calcularJurosCompostosDetalhado(
   valorInicial,
   aporteMensal,
   taxaJurosMensal,

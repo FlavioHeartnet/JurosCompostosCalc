@@ -7,24 +7,24 @@ function calcularJurosCompostos(
   aporteMensal: number,
   taxaJurosMensal: number,
   periodoAnos: number
-): { montantes: number[], totais: number[], valorInvestido: number[] } {
+): { montantes: number[], totais: number[], valoresInvestidos: number[] } {
   const taxaJurosDecimal = taxaJurosMensal / 100;
   const numeroPeriodos = periodoAnos * 12;
   let montante = valorInicial;
   const montantes: number[] = [];
   const totais: number[] = [];
-  const valorInvestido: number[] = [];
+  const valoresInvestidos: number[] = [];
 
   for (let i = 1; i <= numeroPeriodos; i++) {
     montante = montante * (1 + taxaJurosDecimal) + aporteMensal;
     montantes.push(montante);
     const totalRendimento = montante - valorInicial - aporteMensal * (i - 1)
     totais.push(totalRendimento);
-    valorInvestido.push(montante - totalRendimento);
+    valoresInvestidos.push(montante - totalRendimento);
     
   }
 
-  return { montantes, totais, valorInvestido };
+  return { montantes, totais, valoresInvestidos };
 }
 
 // Função para gerar um gráfico de linha
@@ -34,9 +34,10 @@ function gerarGrafico(
 ): void {
   const config = {
     height: 20,
-    padding: '   ', // Padding para rótulos à esquerda
+    padding: ' ', // Padding para rótulos à esquerda
     colors: datasets.map((d) => d.color),
     format: (x: number ) => x.toFixed(2),
+    max: 5
   };
 
   const chart = plot(datasets.map((d) => d.values), config);
@@ -69,7 +70,7 @@ for (let i = 1; i <= periodoAnos * 12; i++) {
 // Gere o gráfico
 gerarGrafico(
   meses,
-  { name: 'Valor Investido', values: resultado.valorInvestido, color: yellow },
+  { name: 'Valor Investido', values: resultado.valoresInvestidos, color: yellow },
   { name: 'Rendimento', values: resultado.totais, color: magenta },
   { name: 'Montante Total', values: resultado.montantes, color: green }
 );
