@@ -13,6 +13,7 @@
   "license": "ISC",
   "dependencies": {
     "@types/asciichart": "^1.5.8",
-    "asciichart": "^1.5.25"
+    "asciichart": "^1.5.25",
+    "readline-sync": "^1.4.10"
   }
 }
