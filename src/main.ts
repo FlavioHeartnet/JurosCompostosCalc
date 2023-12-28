@@ -21,8 +21,8 @@ function calcularJurosCompostos(
 
   return [ 
     formatarNumero(montante), 
-    formatarNumero(rendimento), 
-    formatarNumero(montante - rendimento), 
+    formatarNumero(rendimento - aporteMensal), 
+    formatarNumero((montante - rendimento) + aporteMensal), 
     formatarNumero((montante - rendimento) + investimentoDeduzidoImposto.rendimento), 
     investimentoDeduzidoImposto.aliquota.toFixed(1),
     formatarNumero(rendimento - investimentoDeduzidoImposto.rendimento) 

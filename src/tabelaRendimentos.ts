@@ -19,8 +19,8 @@ export function calcularJurosCompostosDetalhado(
     montante = montante * (1 + taxaJurosDecimal) + aporteMensal;
     montantes.push(formatarNumero(montante));
     const rendimento = montante - valorInicial - aporteMensal * (i - 1);
-    totais.push(formatarNumero(rendimento));
-    valoresInvestidos.push(formatarNumero(montante - rendimento));
+    totais.push(formatarNumero(rendimento - aporteMensal));
+    valoresInvestidos.push(formatarNumero(montante - rendimento + aporteMensal));
   }
 
   return { montantes, totais, valoresInvestidos };
