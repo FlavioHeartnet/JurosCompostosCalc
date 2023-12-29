@@ -6,24 +6,25 @@ export function calcularJurosCompostosDetalhado(
   valorInicial: number,
   aporteMensal: number,
   taxaJurosMensal: number,
-  periodoAnos: number
-): { montantes: string[], totais: string[], valoresInvestidos: string[] } {
+  periodoAnos: number,
+  temComecotas: number
+): { montantes: string[], rendimentosMensais: string[], valoresInvestidos: string[] } {
   const taxaJurosDecimal = taxaJurosMensal / 100;
   const numeroPeriodos = periodoAnos * 12;
   let montante = valorInicial;
   const montantes: string[] = [];
-  const totais: string[] = [];
+  const rendimentosMensais: string[] = [];
   const valoresInvestidos: string[] = [];
 
   for (let i = 1; i <= numeroPeriodos; i++) {
     montante = montante * (1 + taxaJurosDecimal) + aporteMensal;
     montantes.push(formatarNumero(montante));
     const rendimento = montante - valorInicial - aporteMensal * (i - 1);
-    totais.push(formatarNumero(rendimento - aporteMensal));
-    valoresInvestidos.push(formatarNumero(montante - rendimento + aporteMensal));
+    rendimentosMensais.push(formatarNumero(rendimento - aporteMensal));
+    valoresInvestidos.push(formatarNumero(montante - rendimento));
   }
 
-  return { montantes, totais, valoresInvestidos };
+  return { montantes, rendimentosMensais, valoresInvestidos };
 }
 
 export function imprimirTabela(meses: string[], montantes: string[], totais: string[], valoresInvestidos: string[]): void {

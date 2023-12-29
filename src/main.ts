@@ -1,6 +1,7 @@
 import * as readlineSync from 'readline-sync';
 import { calcularJurosCompostosDetalhado, imprimirTabela } from './tabelaRendimentos';
 import { calcImpostoSobrerendimento, formatarNumero, obterAliquotaComeCotas, RendimentoAliquota } from './helper';
+import {  JurosCompostos } from './juroscompostos';
 
 function calcularJurosCompostos(
   valorInicial: number,
@@ -17,6 +18,8 @@ function calcularJurosCompostos(
   const taxaCorretagemMensal = taxacorretagemAnual / 12 / 100; // Taxa de corretagem mensal
   let  impostoPagoComeCotas = 0; // Valor total de impostos pagos no come cotas
 
+  //const montanteFinal = montante + new JurosCompostos().calcularJurosComAporteMensal(aporteMensal, 0.0099166666666667, numeroPeriodos );
+  //console.log(`O montante final após ${numeroPeriodos} meses é: ${formatarNumero(montanteFinal)} versão teste AB`);
   for (let i = 1; i <= numeroPeriodos; i++) {
     montante = montante * (1 + taxaJurosDecimal) + aporteMensal;
     rendimento = montante - valorInicial - aporteMensal * (i - 1);
@@ -30,6 +33,7 @@ function calcularJurosCompostos(
         const impostoComeCotas = rendimentoSemImposto * aliquotaComeCotas;
         montante -= impostoComeCotas;
         impostoPagoComeCotas += impostoComeCotas;
+        console.log("Come Cotas: "+ rendimentoSemImposto + "sem come cotas" + rendimento);
       }
     }
   }
@@ -75,7 +79,8 @@ const tabelaRendimentos = calcularJurosCompostosDetalhado(
   valorInicial,
   aporteMensal,
   taxaJurosMensal,
-  periodoAnos
+  periodoAnos,
+  temComeCotas
 );
 
 
@@ -94,4 +99,4 @@ for (let i = 1; i <= periodoAnos * 12; i++) {
   meses.push(`${i}`);
 }
 
-//imprimirTabela(meses, tabelaRendimentos.montantes, tabelaRendimentos.totais, tabelaRendimentos.valoresInvestidos);
+imprimirTabela(meses, tabelaRendimentos.montantes, tabelaRendimentos.rendimentosMensais, tabelaRendimentos.valoresInvestidos);

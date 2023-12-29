@@ -37,3 +37,7 @@ export function calcImpostoSobrerendimento(rendimento: number, periodoAnos: numb
       rendimento: rendimentoDeduzidoImposto
     }
   }
+
+  export function calculaComeCotas(){
+    return 0;
+  }
