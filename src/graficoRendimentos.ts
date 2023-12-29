@@ -1,4 +1,4 @@
-
+// ! DEPRECATED: Não será mais usada
 import { plot, yellow, magenta, green } from 'asciichart';
 import * as readlineSync from 'readline-sync';
 // Função para calcular juros compostos

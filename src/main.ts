@@ -1,7 +1,6 @@
 import * as readlineSync from 'readline-sync';
 import { calcularJurosCompostosDetalhado, imprimirTabela } from './tabelaRendimentos';
 import { calcImpostoSobrerendimento, formatarNumero, obterAliquotaComeCotas, RendimentoAliquota } from './helper';
-import {  JurosCompostos } from './juroscompostos';
 
 function calcularJurosCompostos(
   valorInicial: number,
@@ -18,12 +17,13 @@ function calcularJurosCompostos(
   const taxaCorretagemMensal = taxacorretagemAnual / 12 / 100; // Taxa de corretagem mensal
   let  impostoPagoComeCotas = 0; // Valor total de impostos pagos no come cotas
 
-  //const montanteFinal = montante + new JurosCompostos().calcularJurosComAporteMensal(aporteMensal, 0.0099166666666667, numeroPeriodos );
-  //console.log(`O montante final após ${numeroPeriodos} meses é: ${formatarNumero(montanteFinal)} versão teste AB`);
+ 
   for (let i = 1; i <= numeroPeriodos; i++) {
-    montante = montante * (1 + taxaJurosDecimal) + aporteMensal;
-    rendimento = montante - valorInicial - aporteMensal * (i - 1);
+    montante = montante * (1 + taxaJurosDecimal); // juros do mês anterior
     montante = montante * (1 - taxaCorretagemMensal); // Deduz a taxa de corretagem
+    montante += aporteMensal; // Adiciona o aporte mensal ao mês atual.
+    rendimento = montante - valorInicial - aporteMensal * (i - 1);
+    
     if(temComeCotas == 1){
       if ((i + 1) % 6 === 0) {
         // Aplica o come-cotas a cada 6 meses
@@ -33,12 +33,9 @@ function calcularJurosCompostos(
         const impostoComeCotas = rendimentoSemImposto * aliquotaComeCotas;
         montante -= impostoComeCotas;
         impostoPagoComeCotas += impostoComeCotas;
-        console.log("Come Cotas: "+ rendimentoSemImposto + "sem come cotas" + rendimento);
       }
     }
   }
-
-  
 
   const investimentoDeduzidoImposto = calcImpostoSobrerendimento(rendimento, periodoAnos);
 
@@ -99,4 +96,4 @@ for (let i = 1; i <= periodoAnos * 12; i++) {
   meses.push(`${i}`);
 }
 
-imprimirTabela(meses, tabelaRendimentos.montantes, tabelaRendimentos.rendimentosMensais, tabelaRendimentos.valoresInvestidos);
+//imprimirTabela(meses, tabelaRendimentos.montantes, tabelaRendimentos.rendimentosMensais, tabelaRendimentos.valoresInvestidos);
